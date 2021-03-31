@@ -4,10 +4,18 @@
 html {
     height: 100% !important;
 }
+input:focus {
+    outline: none;
+}
 .card {
     width: 400px;
+    margin-right: 700px;
 }
-
 .small-text {
     font-size: 12px;
+}
+.grey-font {
+    color: #7d7d7d;
+    font-size: 12px;
+    font-weight: bold;
 }
