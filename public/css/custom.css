@@ -51,3 +51,55 @@ input:focus {
 .row-hover:hover {
     background-color: #f8fafc;
 }
+.chat-title-bar {
+    background-color: #fff;
+}
+.chat-send-bar {
+    background-color: #fff;
+}
+.chatbox {
+    resize: none;
+}
+.name-in-title-bar {
+    font-size: 16px;
+    font-weight: 600;
+    color: #878787;
+}
+.chat-msg {
+    width: 300px;
+    margin: 1px auto;
+    border-radius: 15px;
+    background: #00bfb6;
+    text-align: start;
+    position: relative;
+}
+
+/* speech bubble 13 */
+
+.sb13:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid #00bfb6;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #00bfb6;
+    border-bottom: 15px solid transparent;
+    right: -16px;
+    top: 0px;
+}
+
+/* speech bubble 14 */
+
+.sb14:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid transparent;
+    border-right: 15px solid #00bfb6;
+    border-top: 15px solid #00bfb6;
+    border-bottom: 15px solid transparent;
+    left: -16px;
+    top: 0px;
+}

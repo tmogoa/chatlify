@@ -12,7 +12,7 @@
         </div>
         <div class="d-flex flex-row align-items-center">
             <x-bi-check width="20" height="20" style="color: #c2c1c0" />
-            <span class="small-chat-text d-inline-block text-truncate" style="max-width: 250px;"">Components and slots provide similar benefits to sections,
+            <span class="small-chat-text d-inline-block text-truncate" style="max-width: 320px;"">Components and slots provide similar benefits to sections,
                 layouts, and includes; however, some may find the mental model of components and slots easier to
                 understand. There are two approaches to writing components: class based components and anonymous
                 components.</span>
