@@ -4,6 +4,9 @@
 html {
     height: 100% !important;
 }
+body {
+    overflow: hidden;
+}
 input:focus {
     outline: none;
 }
@@ -25,4 +28,26 @@ input:focus {
 }
 .grey-text {
     color: #7d7d7d;
+}
+.logo-text {
+    font-size: 20px;
+    font-weight: 300;
+}
+.overf-hide {
+    overflow: hidden;
+}
+.scroll-y {
+    overflow-y: scroll;
+}
+.small-chat-text {
+    font-size: 13px;
+    color: #595857;
+}
+.time-text {
+    color: #4a4948;
+    font-size: 11px;
+    font-weight: bold;
+}
+.row-hover:hover {
+    background-color: #f8fafc;
 }

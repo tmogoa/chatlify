@@ -32,3 +32,7 @@ Route::get('/forgotpass', function () {
 Route::get('/changepass', function () {
     return view('changepass');
 });
+
+Route::get('/chat', function () {
+    return view('chat');
+});
