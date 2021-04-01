@@ -26,10 +26,12 @@
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label grey-font">Password</label>
-                  <input type="password" class="border w-100 rounded-pill px-3 py-2" id="password" placeholder="Your password">
+                  <input type="password" class="border w-100 rounded-pill px-3 py-2" id="password" name="password" placeholder="Your password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Log in</button>
-              </form>
+            </form>
+            <span class="mt-3">Don't have an account? <a href="/signup">Sign up</a></span>
+            <a href="/forgotpass" class="mt-2">Forgot password?</a>
         </div>
     </div>
 </body>
