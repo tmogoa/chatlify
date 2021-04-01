@@ -1,5 +1,5 @@
 <div class="d-flex flex-column w-100 border-left h-100 overf-hide">
-    <div class="chat-title-bar d-flex flex-row w-100 align-items-center p-2">
+    <div class="chat-title-bar d-flex flex-row w-100 align-items-center p-2 border-bottom">
         <div class="rounded-circle d-flex border p-1 my-1 mx-2" style="
           width: 48px;
           height: 48px;
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="flex-grow-1 overf-hide">
-        <div class="w-100 scroll-y p-3" style="height: 520px">
+        <div class="w-100 scroll-y p-3" style="height: 530px">
             @for ($i = 0; $i < 50; $i++)
                 @if ($i % 2 == 0)
                     @include('chatView', ['justify' => 'justify-content-end', 'from' => 'sb13'])
@@ -22,9 +22,9 @@
             @endfor
         </div>
     </div>
-    <div class="chat-send-bar w-100">
+    <div class="chat-send-bar w-100 border-top">
         <form class="d-flex flex-row p-2 align-items-center justify-content-center">
-            <textarea name="chat" id="" cols="70" rows="2" class="rounded border chatbox p-2 ml-2 mr-4"
+            <textarea name="chat" id="" cols="70" rows="2" class="rounded border chatbox p-2 ml-1 mr-4 flex-grow-1"
                 placeholder="type message here"></textarea>
             <button class="rounded-circle d-flex border p-1 my-1 ml-3 mx-2" style="
             width: 48px;
