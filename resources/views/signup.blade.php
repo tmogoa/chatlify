@@ -18,7 +18,7 @@
             <img src="{{ asset('img/logo.svg') }}" alt="Chatlify" width="60px">
             <h2 class="logo-text text-primary mt-2">Chatlify</h2>
             <p>Chat your day away</p>
-            <form class="mt-1" action="">
+            <form class="mt-1" action="{{ route('register') }}">
                 <div class="mb-3">
                   <label for="username" class="form-label grey-font">Choose a username e.g johndoe</label>
                   <input type="username" class="border w-100 rounded-pill px-3 py-2" id="username" name="username" aria-describedby="usernameHelp" placeholder="Username or email">
