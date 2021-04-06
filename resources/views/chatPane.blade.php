@@ -6,9 +6,14 @@
         ">
             <x-bi-person-fill width="36" height="36" style="color: #00ccff" />
         </div>
-        <div class="d-flex flex-column ml-2">
-            <span class="name-in-title-bar">Levi Kamara</span>
-            <span class="small-chat-text">Last seen today at 4.35PM</span>
+        <div class="d-flex flex-row justify-content-between w-100 align-items-center">
+            <div class="d-flex flex-column ml-2">
+                <span class="name-in-title-bar">Levi Kamara</span>
+                <span class="small-chat-text">Last seen today at 4.35PM</span>
+            </div>
+            <div>
+                <button class="btn btn-danger">Logout</button>
+            </div>
         </div>
     </div>
     <div class="flex-grow-1 overf-hide">
