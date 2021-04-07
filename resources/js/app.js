@@ -7,6 +7,7 @@ require('./bootstrap');
  let userPane = document.getElementById("user-pane");
  let chatTextArea = document.getElementById("chat-text-area");
  let sendChat = document.getElementById("send-chat");
+ let searchInput = document.getElementById("search-user");
  
 
  conn.onopen = function(e){
@@ -21,31 +22,51 @@ require('./bootstrap');
      switch(res.type){
         case "uo": //user online
             {
+                document.getElementById("user-status").innerHTML = "online";
                 break;
             }
         case "error": //error
             {
+                switch(res.message){
+                    case "cus": //cannot update status
+                        {
+                            
+                            break;
+                        }
+                    case "nsu": //no selected user
+                        {
+                            Utility.showError("Please select an account to perform the function");
+                            break;
+                        }
+                }
                 break;
             }
         case "scd"://sent chat delivered
             {
+                document.getElementById("chat-tick-"+res.chatId).innerHTML = "/double-tick/";
                 break;
             }
         case "scs": //sent chat sent
             {
+                document.getElementById("chat-tick-"+res.chatId).innerHTML = "/one-tick";
                 break;
             }
         case "scf": //sent chat fail
             {
+                Utility.showError("An error occurred. We could not send your message");
                 break;
             }
         case "css": //chat seen successfully 
             {
+                document.getElementById("chat-tick-"+res.chatId).innerHTML = "/blue-tick/";
                 break;
             }
         case "c-col": //chat collection
             {
-
+                let chatsArray = res.attached;
+                chatsArray.forEach(chat => {
+                    ///
+                });
                 break;
             }
         case "nc": //new chat
