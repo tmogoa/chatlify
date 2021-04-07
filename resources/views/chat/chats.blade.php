@@ -12,7 +12,10 @@
                 <span class="small-chat-text">Last seen today at 4.35PM</span>
             </div>
             <div>
-                <button class="btn btn-danger">Logout</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="btn btn-danger">{{ __('Logout')}}</button>
+                </form>
             </div>
         </div>
     </div>
@@ -20,9 +23,9 @@
         <div class="w-100 scroll-y p-3" style="height: 530px">
             @for ($i = 0; $i < 50; $i++)
                 @if ($i % 2 == 0)
-                    @include('chatView', ['justify' => 'justify-content-end', 'from' => 'sb13'])
+                    @include('chat.view', ['justify' => 'justify-content-end', 'from' => 'sb13'])
                 @else
-                    @include('chatView', ['justify' => 'justify-content-start', 'from' => 'sb14'])
+                    @include('chat.view', ['justify' => 'justify-content-start', 'from' => 'sb14'])
                 @endif
             @endfor
         </div>
