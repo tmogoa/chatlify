@@ -12,8 +12,15 @@
                 <span class="small-chat-text">Last seen today at 4.35PM</span>
             </div>
             <div>
-                <button class="btn btn-danger">Logout</button>
+                <button class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                               {{ __('Logout') }}</button>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
+
         </div>
     </div>
     <div class="flex-grow-1 overf-hide">

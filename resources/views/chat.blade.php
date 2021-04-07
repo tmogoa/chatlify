@@ -24,6 +24,7 @@
                         <input type="text" class="border w-100 rounded-pill px-3 py-2 ml-2" id="search" name="search"
                             aria-describedby="searchHelp" placeholder="Search people"/>
                     </div>
+                    
                     <div class="scroll-y pt-2" style="height: 600px">
                         @for ($i = 0; $i < 50; $i++)
                             @include('chatRowItem')
