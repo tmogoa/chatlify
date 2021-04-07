@@ -190,9 +190,9 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                     break;
                 }
             default:
-            {
-                //do nothing
-            }
+                {
+                    //do nothing
+                }
         }
     }
 
