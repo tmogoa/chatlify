@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 py-2 container-wrap">
-        <div class="d-flex flex-column justify-content-center align-items-center border rounded px-5 py-3 bg-white welcome-card flex-grow-1 container-content" style="width: 450px;">
+        <div class="d-flex flex-column justify-content-center align-items-center border rounded px-5 py-2 bg-white welcome-card flex-grow-1 container-content" style="width: 450px;">
             <img src="{{ asset('img/logo.svg') }}" alt="Chatlify" width="40px">
             <h2 class="logo-text text-primary mt-2">CHATLIFY</h2>
             <p>Chat your day away</p>
