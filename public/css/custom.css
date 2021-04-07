@@ -1,11 +1,13 @@
 * {
     font-family: "Inter", sans-serif !important;
 }
-html {
+html,
+body {
     height: 100% !important;
 }
 body {
     overflow: hidden;
+    background-color: #fff !important;
 }
 input:focus {
     outline: none;
@@ -33,8 +35,9 @@ input:focus {
     color: #7d7d7d;
 }
 .logo-text {
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: 3px;
+    font-weight: 600;
 }
 .overf-hide {
     overflow: hidden;
@@ -105,4 +108,28 @@ input:focus {
     border-bottom: 15px solid transparent;
     left: -16px;
     top: 0px;
+}
+
+.container-wrap {
+    position: relative;
+}
+
+.container-wrap:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/img/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+}
+
+.container-content {
+    position: relative;
 }

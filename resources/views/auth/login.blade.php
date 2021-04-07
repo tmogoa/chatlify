@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 py-4">
-        <div class="d-flex flex-column justify-content-center align-items-center border rounded p-5 card shadow">
+    <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 py-4 container-wrap">
+        <div class="d-flex flex-column justify-content-center align-items-center border rounded p-5 card shadow container-content">
             <img src="{{ asset('img/logo.svg') }}" alt="Chatlify" width="90px">
-            <h2 class="logo-text text-primary mt-2">Chatlify</h2>
+            <h2 class="logo-text text-primary mt-2">CHATLIFY</h2>
             <p>Chat your day away</p>
-            <form class="mt-1" method="POST" action="{{ route('login') }}">
+            <form class="mt-2   " method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label grey-font">Email address</label>
