@@ -16,7 +16,7 @@
     <div class="d-flex justify-content-center align-items-center flex-column w-100 h-100">
         <div class="d-flex justify-content-center align-items-center flex-column rounded-bottom border p-5 bg-white welcome-card flex-grow-1">
             <img src="{{ asset('img/logo.svg') }}" alt="Chatlify" width="150px">
-            <h2 class="logo-text text-primary mt-2">Chatlify</h2>
+            <h2 class="logo-text text-primary mt-2">CHATLIFY</h2>
             <p>Chat your day away</p>
             <a href="/login" class="btn btn-primary btn-block">Start chatting away</a>
             <span class="small-text mt-4">Built to ridicule the social media mess</span>
