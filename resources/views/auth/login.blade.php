@@ -30,12 +30,13 @@
                 </div>
                 <div class="form-group d-flex w-100">
                     <div class="w-100">
-                        <div class="form-check flex-row justify-content-start w-100">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
+                        <div class="d-flex flex-row justify-content-start w-100 align-items-center">
+                            <input class="mr-2" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <div>
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

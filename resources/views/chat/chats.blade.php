@@ -8,7 +8,7 @@
         </div>
         <div class="d-flex flex-row justify-content-between w-100 align-items-center">
             <div class="d-flex flex-column ml-2">
-                <span class="name-in-title-bar">Levi Kamara</span>
+                <span class="name-in-title-bar">{{auth()->user()->username}}</span>
                 <span class="small-chat-text">Last seen today at 4.35PM</span>
             </div>
             <div>
@@ -23,9 +23,9 @@
         <div class="w-100 scroll-y p-3" style="height: 530px">
             @for ($i = 0; $i < 50; $i++)
                 @if ($i % 2 == 0)
-                    @include('chat.view', ['justify' => 'justify-content-end', 'from' => 'sb13'])
+                    @include('chat.view', ['justify' => 'justify-content-end', 'from' => 'sb13', 'seen' => true, 'sent_at' => '3.45PM', 'chat_text' => 'Whether you are new to PHP or web frameworks or have years of experience, Laravel is a framework that can grow with you. We\'ll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. We can\'t wait to see what you build.Whether you are new to PHP or web frameworks or have years of experience, Laravel is a framework that can grow with you. We\'ll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. We can\'t wait to see what you build.Whether you are new to PHP or web frameworks or have years of experience, Laravel is a framework that can grow with you. We\'ll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. We can\'t wait to see what you build.'])
                 @else
-                    @include('chat.view', ['justify' => 'justify-content-start', 'from' => 'sb14'])
+                    @include('chat.view', ['justify' => 'justify-content-start', 'from' => 'sb14', 'seen' => false, 'sent_at' => '4.50PM', 'chat_text' => 'Really, i did not see your call'])
                 @endif
             @endfor
         </div>

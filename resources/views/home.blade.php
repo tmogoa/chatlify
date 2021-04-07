@@ -17,9 +17,9 @@
                 </div>
             </div>
         </div>
-        
         <div class="col-8 p-0 m-0">
-            @include('chat.chats')
+            {{-- Pass an array of chat objects to this view when the page first loads. --}}
+            @include('chat.chats', ['chats' => []])
         </div>
     </div>
 </div>
