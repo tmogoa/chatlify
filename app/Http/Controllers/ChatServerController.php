@@ -64,6 +64,19 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                 {
                    
                     $this->registerUser($userId, $conn);
+                    //send to all users who are currently viewing this users profile that
+                    //he is online
+                    foreach($this->currentOnlineUsers as $activeUser){
+                        if($activeUser->getCurrentConnectedUser() == $userId){
+                            $message =
+                            '{
+                                "type":"uo",
+                                "message":"Online",
+                                "userid": $userId
+                            }';//user online
+                            $activeUser->broadcastToAllConnections($message);
+                        }
+                    }
                     break;
                 }
             case "vc": //view chat... an id is given you will 
@@ -164,14 +177,14 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                         $message = 
                         '{
                             "type":"error",
-                            "message":"cannot update status",
+                            "message":"cus",
                             "chatId":$chatId
-                         }';
+                         }';//cannot update status
                          $user->broadcastToAllConnections($message);
                     }
                     $chatText = $chat->chatText;
                     $chatText = json_decode($chatText, true);
-                    $chatText['visibilityStatus'] = true;
+                    $chatText->visibilityStatus = true;
                     $chatText = json_encode($chatText);
                     $chat->chatText = $chatText;
                     $chat->save();
@@ -181,7 +194,7 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                         '{
                             "type":"css",
                             "message":"message seen",
-                            "chatId":$chatId
+                            "chatId":$chatId,
                             "receiver":$chat->receiverId
                          }';
                          //chat seen successfully

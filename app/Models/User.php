@@ -82,10 +82,14 @@ class User extends Authenticatable
         $newChat = Chat::create([
             'chatText' => $chat->message,
             'senderId' => $this->id,
-            'receiverId' => $chat->receiverId
+            'receiverId' => $this->currentConnectedUser
         ]);
 
-        $JSON_chat = json_encode($newChat);
+        $data = new Data();
+        $data->type = "nc";//new chat
+        $data->attached = $newChat;
+
+        $JSON_chat = json_encode($data);
         $this->broadcastToAllConnections($JSON_chat);
 
         if($user == null){
@@ -144,15 +148,18 @@ class User extends Authenticatable
         $userId = $this->currentConnectedUser;
         $chat = DB::table('chats')->whereRaw("(senderId = ? and receiverId = ?) or (senderId = ? and receiverId = ?)", [$this->id, $userId, $userId, $this->id])
         ->get()
-        ->orderBy('created_at');
+        ->orderByDesc('created_at');
 
         $chatsArray = [];
         foreach($chat as $ch){
             $chatsArray[] = $ch;
         }
 
-        $chatsArrayJson = json_encode($chatsArray);
-        $this->broadcastToAllConnections($chatsArrayJson);
+        $data = new Data();
+        $data->type = "c-col";//chat collection
+        $data->attached = $chatsArray;
+        $dataToSend = json_encode($data);
+        $this->broadcastToAllConnections($dataToSend);
         return true;
     }
 
