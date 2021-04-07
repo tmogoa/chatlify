@@ -12,18 +12,9 @@
                 <span class="small-chat-text">Last seen today at 4.35PM</span>
             </div>
             <div>
-<<<<<<< HEAD:resources/views/chatPane.blade.php
-                <button class="btn btn-danger" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                               {{ __('Logout') }}</button>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-=======
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="btn btn-danger">{{ __('Logout')}}</button>
->>>>>>> 4c11faec3591efe79ffde28cec7f7984c11a887a:resources/views/chat/chats.blade.php
                 </form>
             </div>
 

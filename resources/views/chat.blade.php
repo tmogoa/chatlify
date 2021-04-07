@@ -27,7 +27,7 @@
                     
                     <div class="scroll-y pt-2" style="height: 600px">
                         @for ($i = 0; $i < 50; $i++)
-                            @include('chatRowItem')
+                            @include('chat.row')
                         @endfor
                     </div>
                 </div>

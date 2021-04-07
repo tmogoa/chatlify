@@ -1,11 +1,14 @@
 <?php
-
 namespace App\Models;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use PHPUnit\Util\Json;
 
 class User extends Authenticatable
 {
@@ -44,28 +47,81 @@ class User extends Authenticatable
     private $lastSeen;
     private $online = false;
     private $connectedUsers = [];
+    /**
+     * @property $currentConnectedUser is saved as 'user-id'
+     */
     private $currentConnectedUser;
     private $connections = [];
+    /**
+     * The connection from which the message was sent.
+     * This will be set by the WebSocketController
+     */
+    public $sendingConnection = null;
  
 
     /**
+     * Sanitization of the chat text will be done in the WebSocketController
      * @param JSON $message - The message is a Chat Object in a JSON format.
      * This function allows the user to send a message to the current connected user.
      * The current connected user is the user that is currently being chat with.
+     * @param $array_of_users the connected users that is maintained by the WebSocketController class.
      * @return 1|2|3 - 1 if the user is online and the message was delivered.
      * 2 if the user is offline but the message was sent and.
      * 3 if the message was not sent. Usually and error will cause this to happen.
      */
-    public function sendChat($JSON_chat)
+    public function sendChat($JSON_chat, $array_of_users)
     {
+        if(array_key_exists("user-$this->currentConnectedUser", $array_of_users)){
+            $user = $array_of_users[$this->currentConnectedUser];
+        }else{
+            $user = null;
+        }
+        
+        $chat = json_decode($JSON_chat);
+       
+        $newChat = Chat::create([
+            'chatText' => $chat->message,
+            'senderId' => $this->id,
+            'receiverId' => $chat->receiverId
+        ]);
 
+        $JSON_chat = json_encode($newChat);
+        $this->broadcastToAllConnections($JSON_chat);
+
+        if($user == null){
+            //Then the user is offline, so save the chat in the database
+            if($newChat == null){
+                return [3, $newChat->chatId];
+            }
+            else{
+                return [2, $newChat->chatId];
+            }
+        }
+        else{
+            if($newChat == null){
+                return [3, $newChat->chatId];
+            }
+
+            //try to send the user who is online
+            $user->broadcastToAllConnections($JSON_chat);
+
+            return [1, $newChat->chatId];
+        }
     }
 
+    public function broadcastToAllConnections($json_chat){
+        foreach($this->connections as $conn){
+            if($this->sendingConnection !== $conn){
+                $conn->send($json_chat);
+            }
+        }
+        return true;
+    }
     /**
      * Deletes a chat from the database and the users sides.
      */
     public function deleteChat($chatId){
-
+        
     }
 
     /**
@@ -73,24 +129,43 @@ class User extends Authenticatable
      * The connected users are all the users that have received a message from this user.
      */
     public function connectToUser($newUserId){
-
+        //taking user id and putting it in connected user array
+        if(DB::table('users')->where('id', $newUserId)->exists()){
+            $this->connectedUsers['user-'.$newUserId] = $newUserId;
+        }
+        return true;
     }
 
     /**
      * When the chat is already in the database but hasn't been seen yet by the user, this
      * method is called to send all the messages.
      */
-    public function receiveChat($JSON_chat){
+    public function receiveAllChat(){
+        $userId = $this->currentConnectedUser;
+        $chat = DB::table('chats')->whereRaw("(senderId = ? and receiverId = ?) or (senderId = ? and receiverId = ?)", [$this->id, $userId, $userId, $this->id])
+        ->get()
+        ->orderBy('created_at');
 
+        $chatsArray = [];
+        foreach($chat as $ch){
+            $chatsArray[] = $ch;
+        }
+
+        $chatsArrayJson = json_encode($chatsArray);
+        $this->broadcastToAllConnections($chatsArrayJson);
+        return true;
     }
 
     
 
     /**
      * Get the value of lastSeen
+     * Last seen is the updated_at column of the users table. 
+     * It is updated when all of the user's connection has disconnected.
      */ 
     public function getLastSeen()
     {
+        $this->lastSeen = $this->updated_at->diffForHumans();
         return $this->lastSeen;
     }
 
@@ -99,11 +174,9 @@ class User extends Authenticatable
      * The datetime that the user was last seen
      * @return  self
      */ 
-    public function setLastSeen($lastSeen)
+    public function setLastSeen()
     {
-        $this->lastSeen = $lastSeen;
-
-        return $this;
+        $this->save();
     }
 
     /**
@@ -123,7 +196,6 @@ class User extends Authenticatable
     public function setOnline($online)
     {
         $this->online = $online;
-
         return $this;
     }
 
@@ -140,11 +212,8 @@ class User extends Authenticatable
      *
      * @return  self
      */ 
-    public function setConnectedUsers($connectedUsers)
+    public function setConnectedUsers()
     {
-        $this->connectedUsers = $connectedUsers;
-
-        return $this;
     }
 
     /**
@@ -180,10 +249,25 @@ class User extends Authenticatable
      *
      * @return  self
      */ 
-    public function addToConnections($connection)
+    public function addToConnections(\Ratchet\ConnectionInterface $connection)
     {
-        $this->connections[] = $connection;
-
+        if(in_array($connection, $this->connections)){
+            $this->connections[] = $connection;
+        }
         return $this;
+    }
+
+    public function removeConnection(\Ratchet\ConnectionInterface $conn){
+        $index = array_keys($this->connections, $conn);
+        if(count($index) > 0){
+            unset($this->connections[$index[0]]);
+        }
+        if(count($this->connections) > 0){
+            $this->online = true;
+        }else{
+            $this->online = false;
+        }
+       
+        return true;
     }
 }
