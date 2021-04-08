@@ -1,29 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chatlify</title>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+@extends('layouts.app')
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-</head>
-<body class="w-100 h-100" style="background: url({{asset('img/bg.jpg')}});background-size: cover;background-repeat: no-repeat;background-attachment: fixed;">
-    <div class="d-flex justify-content-center align-items-center flex-column w-100 h-100">
-        <div class="d-flex justify-content-center align-items-center flex-column rounded-bottom border p-5 bg-white welcome-card flex-grow-1">
-            <img src="{{ asset('img/logo.svg') }}" alt="Chatlify" width="150px">
-            <h2 class="logo-text text-primary mt-2">CHATLIFY</h2>
+@section('content')
+    <div class="d-flex justify-content-center align-items-center flex-column w-100 h-100 container-wrap">
+        <div class="d-flex justify-content-center align-items-center flex-column rounded-bottom border p-5 bg-white welcome-card flex-grow-1 container-content">
+            <img src="{{ asset('img/logo.svg') }}" alt="Chatlify" width="250px">
+            <h2 class="logo-text text-primary mt-3" style="font-size: 20px">CHATLIFY</h2>
             <p>Chat your day away</p>
-            <a href="/login" class="btn btn-primary btn-block">Start chatting away</a>
-            <span class="small-text mt-4">Built to ridicule the social media mess</span>
+            <a href="/login" class="btn btn-primary btn-block mt-3">Start chatting away</a>
         </div>
         <div class="text-dark d-flex flex-column flex-column-reverse align-items-center w-100">
             <span class="mr-3 mt-5">Photo by <a href="https://unsplash.com/@cristina_gottardi?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="text-white">Cristina Gottardi</a> on <a href="https://unsplash.com/s/photos/chat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="text-white">Unsplash</a><span/>
         </div>
     </div>
-</body>
-</html>
+@endsection
