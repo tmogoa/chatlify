@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/users', [UserController::class, 'list'])->name('listusers');
+Route::get('/users/search', [UserController::class, 'findUser']);
 Route::get('/chats', [UserController::class, 'getMostRecentChats'])->name('chats');
 Route::get('/finduser', [UserController::class, 'findUser'])->name('finduser');
 
