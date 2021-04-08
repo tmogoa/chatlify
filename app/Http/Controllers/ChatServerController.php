@@ -112,7 +112,10 @@ class ChatServerController extends  Controller implements MessageComponentInterf
             case "sc": //send chat to the active user
                 {
                     echo "sending a new chat\n";
+                    echo "the message is ' $jsonMsg ' \n";
+                    print_r(array_keys($this->currentOnlineUsers));
                     $user = $this->currentOnlineUsers["user-$userId"];
+                    
 
                     if($user->getCurrentConnectedUser() == null){
                         $message = 
@@ -121,10 +124,12 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                             "message":"nsu"
                         }';
                         //nsu means no selected user
+                        echo "NAU selected";
                         $user->broadcastToAllConnections($message);
                         return;
                     }
-                    var_dump($jsonMsg);
+                    echo "the message is 2 ' $jsonMsg ' \n";
+
                     $res = $user->sendChat($jsonMsg, $this->currentOnlineUsers);
                     $sentStatus = $res[0];
                     $chatId = $res[1];
@@ -134,11 +139,11 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                                 //message was successfully sent and the receiver is online.
                                 //therefore the message was delivered.
                                 $message = 
-                                '{
-                                    "type":"scd",
-                                    "message":"delivered",
-                                    "chatId": $chatId
-                                 }';
+                                "{
+                                    \"type\":\"scd\",
+                                    \"message\":\"delivered\",
+                                    \"chatId\": $chatId
+                                 }";
                                  //sent chat delivered
                                 break;
                             }
@@ -239,7 +244,7 @@ class ChatServerController extends  Controller implements MessageComponentInterf
      * return bool
      */
     public function registerUser($userId, ConnectionInterface $fromConnection){
-        if(!array_key_exists("user-$userId", $this->currentOnlineUserse)){
+        if(!array_key_exists("user-$userId", $this->currentOnlineUsers)){
             $newUser = User::find($userId);
             $newUser->setOnline(true);
             $newUser->addToConnections($fromConnection);

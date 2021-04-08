@@ -8,6 +8,14 @@
  let sendChat = document.getElementById("send-chat");
  let searchInput = document.getElementById("search-user");
  
+ window.onload = initViariables;
+ function initViariables(){
+    chatPane = document.getElementById("chat-pane");
+    userPane = document.getElementById("user-pane");
+    chatTextArea = document.getElementById("chat-text-area");
+    sendChat = document.getElementById("send-chat");
+    searchInput = document.getElementById("search-user");
+ }
  conn.onopen = function(e){
      sendData({
          type: "su"
@@ -111,6 +119,7 @@
             chatText: chatTextArea.value,
             visibilityStatus: false
         });
+        console.log("Sending message");
     }
  });
 
@@ -145,4 +154,21 @@
       document.getElementById('s-username').innerHTML = document.getElementById('user-'+selectedUser).querySelector('#username').innerHTML;
       let res = xhttp.responseText;
       chatPane.innerHTML = res;
+  }
+
+  function addChatToPane(response, from = 'self'){
+      let chatId = response.attached.chatId;
+      let chatText = JSON.parse(response.attached.chatText).chatText;
+      let chatTime = response.attached.created_at;
+      let chatElem = "";
+      if(from !== 'self'){
+        chatElem = "<div class='d-flex mt-3 flex-row justify-content-end' id='chat-'"+chatId+"><div><div style='font-size: 14px; ' class='p-3 mx-2 text-white chat-msg sb14'>"+chatText+"</div><div class='w-100 d-flex justify-content-end pr-3 align-items-center'><span><x-bi-check width='20' height='20' style='color: #c2c1c0' id='visibility-status' /><span class='ml-2 time-text'>"+chatTime+"</span></span></div></div><input type='hidden' id='visibility-status' value='false'></div>";
+      }
+      else
+      {
+        chatElem = "<div class='d-flex mt-3 flex-row justify-content-start' id='chat-'"+chatId+"><div><div style='font-size: 14px; ' class='p-3 mx-2 text-white chat-msg sb13'>"+chatText+"</div><div class='w-100 d-flex justify-content-end pr-3 align-items-center'><span><x-bi-check width='20' height='20' style='color: #c2c1c0' id='visibility-status' /><span class='ml-2 time-text'>"+chatTime+"</span></span></div></div><input type='hidden' id='visibility-status' value='false'></div>";
+      }
+      
+      chatPane.innerHTML += chatElem;
+
   }

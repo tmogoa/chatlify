@@ -71,6 +71,7 @@ class User extends Authenticatable
      */
     public function sendChat($JSON_chat, $array_of_users)
     {
+        echo "In the SendChat function\n";
         if(array_key_exists("user-$this->currentConnectedUser", $array_of_users)){
             $user = $array_of_users[$this->currentConnectedUser];
         }else{
@@ -80,11 +81,12 @@ class User extends Authenticatable
         $chat = json_decode($JSON_chat);
        
         $newChat = Chat::create([
-            'chatText' => $chat->message,
+            'chatText' => $JSON_chat,
             'senderId' => $this->id,
             'receiverId' => $this->currentConnectedUser
         ]);
-
+            echo "trying to save the chat in the database\n";
+            var_dump($newChat);
         $data = new Data();
         $data->type = "nc";//new chat
         $data->attached = $newChat;
@@ -95,7 +97,7 @@ class User extends Authenticatable
         if($user == null){
             //Then the user is offline, so save the chat in the database
             if($newChat == null){
-                return [3, $newChat->chatId];
+                return [3, 0];
             }
             else{
                 return [2, $newChat->chatId];

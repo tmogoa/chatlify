@@ -21,23 +21,18 @@
         </div>
     </div>
     <div class="flex-grow-1 overf-hide">
-<<<<<<< HEAD
         <div class="w-100 scroll-y p-3" style="height: 530px" id="chat-pane">
-=======
-        <div class="w-100 scroll-y p-3" style="height: 530px" id="chatPane">
->>>>>>> 8f764c146f93bbad18e2c118613b73f9bcfa272c
             @include('chat.empty')
             
         </div>
     </div>
     <div class="chat-send-bar w-100 border-top">
         <form class="d-flex flex-row p-2 align-items-center justify-content-center">
-            <textarea name="chat" id="" cols="70" rows="2" class="rounded border chatbox p-2 ml-1 mr-4 flex-grow-1"
+            <textarea name="chat" cols="70" rows="2" class="rounded border chatbox p-2 ml-1 mr-4 flex-grow-1"
                 placeholder="type message here" id="chat-text-area"></textarea>
             <button type='button' class="rounded-circle d-flex border p-1 my-1 ml-3 mx-2" style="
             width: 48px;
-            height: 48px;
-          " id="send-chat">
+            height: 48px;" id="send-chat">
                 <x-bi-cursor-fill width="36" height="36" style="color: #4affa4" />
             </button>
         </form>
