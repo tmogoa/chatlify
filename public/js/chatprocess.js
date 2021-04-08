@@ -1,14 +1,13 @@
 
  let conn = new WebSocket("ws://localhost:8081");
- let uid = 1; //userId
- let selectedUser = 1;
+ let uid = document.getElementById('user-id').value; //userId
+ let selectedUser = 0;
  let chatPane = document.getElementById("chat-pane");
  let userPane = document.getElementById("user-pane");
  let chatTextArea = document.getElementById("chat-text-area");
  let sendChat = document.getElementById("send-chat");
  let searchInput = document.getElementById("search-user");
  
-
  conn.onopen = function(e){
      sendData({
          type: "su"
@@ -70,6 +69,7 @@
             }
         case "nc": //new chat
             {
+                console.log(res);
                 break;
             }
         default:
@@ -80,11 +80,14 @@
  }
  
  function changeSelectedUser(userElem){
-    selectedUser = userElem.id;
+    selectedUser = userElem.id.split("-")[1];
     sendData({
         type: "sau",
         rid:selectedUser
     });
+
+    //send the ajax request to show the chats
+    Utility.main_ajax_with_call_back(listUsers, "/chats", "the_user="+selectedUser, "GET");
  }
 
  function setSeenStatusObserver(chatElem){
@@ -105,7 +108,8 @@
             type: "sc",
             senderId: uid,
             receiverId: selectedUser,
-            chatText: chatTextArea.value
+            chatText: chatTextArea.value,
+            visibilityStatus: false
         });
     }
  });
@@ -137,3 +141,8 @@
     return false;
   }
   
+  function listUsers(xhttp){
+      document.getElementById('s-username').innerHTML = document.getElementById('user-'+selectedUser).querySelector('#username').innerHTML;
+      let res = xhttp.responseText;
+      chatPane.innerHTML = res;
+  }

@@ -67,7 +67,8 @@ class ChatServerController extends  Controller implements MessageComponentInterf
         {
             case "su"://store user
                 {
-                   
+                   echo "storing user $userId  \n";
+
                     $this->registerUser($userId, $conn);
                     //send to all users who are currently viewing this users profile that
                     //he is online
@@ -103,12 +104,14 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                 }
             case "sau": //set active user
                 {
+                    echo "User $userId is set active user $msg->rid\n";
                     $user = $this->currentOnlineUsers["user-$userId"];
                     $user->setCurrentConnectedUser($msg->rid);//rid is the receiver Id
                     break;
                 }
             case "sc": //send chat to the active user
                 {
+                    echo "sending a new chat\n";
                     $user = $this->currentOnlineUsers["user-$userId"];
 
                     if($user->getCurrentConnectedUser() == null){
@@ -121,7 +124,7 @@ class ChatServerController extends  Controller implements MessageComponentInterf
                         $user->broadcastToAllConnections($message);
                         return;
                     }
-
+                    var_dump($jsonMsg);
                     $res = $user->sendChat($jsonMsg, $this->currentOnlineUsers);
                     $sentStatus = $res[0];
                     $chatId = $res[1];

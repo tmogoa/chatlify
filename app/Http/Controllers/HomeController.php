@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users_list = UserController::list();
+        return view('home', ['connectedUsers' => $users_list]);
     }
 }

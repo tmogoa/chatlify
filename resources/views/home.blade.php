@@ -4,6 +4,7 @@
     <div class="containers w-100 h-100 m-0 p-0">
         <div class="row w-100 h-100 m-0">
             <div class="col-4 bg-white p-1 m-0">
+               <input type="hidden" value="{{auth()->id()}}" id="user-id">
                 <div class="d-flex flex-column">
                     <div class="d-flex flex-row align-items-center my-2 mx-3">
                         <a href="{{ route('home') }}">
@@ -13,9 +14,14 @@
                             aria-describedby="searchHelp" placeholder="Search people"/>
                     </div>
                     <div class="scroll-y pt-2" style="height: 600px">
-                        @for ($i = 0; $i < 50; $i++)
-                            @include('chat.row')
-                        @endfor
+                        <!-- @foreach ( $connectedUsers as $user )
+                          $lastChat = $user[1];
+                          $user = $user[0];
+                          $chatText = json_decode($lastChat->chatText)->chatText;
+                          @include('chat.row')
+                        @endforeach -->
+
+                        @each('chat.row', $connectedUsers, 'user')
                     </div>
                 </div>
             </div>
