@@ -38,7 +38,7 @@ class UserController extends Controller
         rsort($users_list);
 
         //return a json html of the view
-        $json_view = view('')
+        $json_view = view('');
     }
 
     public function getMostRecentChat(Request $request){

@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="flex-grow-1 overf-hide">
-        <div class="w-100 scroll-y p-3" style="height: 530px">
+        <div class="w-100 scroll-y p-3" style="height: 530px" id="chatPane">
             @include('chat.empty')
             {{-- @for ($i = 0; $i < 50; $i++)
                 @if ($i % 2 == 0)
