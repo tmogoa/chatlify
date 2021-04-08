@@ -41,7 +41,11 @@ class UserController extends Controller
         $users_list = array_keys($users_list);
         $users_list = array_map('json_decode', $users_list);
         //return a json html of the view
+<<<<<<< HEAD
         return $users_list;
+=======
+        $json_view = view('');
+>>>>>>> 8f764c146f93bbad18e2c118613b73f9bcfa272c
     }
 
     public function getMostRecentChats(Request $request){

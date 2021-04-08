@@ -21,7 +21,11 @@
         </div>
     </div>
     <div class="flex-grow-1 overf-hide">
+<<<<<<< HEAD
         <div class="w-100 scroll-y p-3" style="height: 530px" id="chat-pane">
+=======
+        <div class="w-100 scroll-y p-3" style="height: 530px" id="chatPane">
+>>>>>>> 8f764c146f93bbad18e2c118613b73f9bcfa272c
             @include('chat.empty')
             
         </div>
