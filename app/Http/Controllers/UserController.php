@@ -20,29 +20,43 @@ class UserController extends Controller
         return view('search',$cred);
     }
 
-    public function list(){
+    public static function list(){
         //get all users that you have chatted with
-        $userId = auth()->id;
+        $userId = auth()->id();
         
         //get all users then those without a message don't get listed
         $users = DB::table('users')->get(['id', 'username']);
+        
         $users_list = [];
         foreach($users as $user){
-            $lastChat = DB::table('chat')->whereRaw("(senderId = ? and receiverId = ?) or (senderId = ? and receiverId = ?)", [$userId, $user->id, $user->id, $userId])->orderByDesc('updated_at')->limit(1)->get();
+            $lastChat = DB::table('chats')->whereRaw("(senderId = ? and receiverId = ?) or (senderId = ? and receiverId = ?)", [$userId, $user->id, $user->id, $userId])->orderByDesc('created_at')->limit(1)->get();
             if($lastChat->count() > 0){
-                $jsonUser_lastChat = json_encode([$user, $lastChat->get(0)]);
-                $users_list[$jsonUser_lastChat] = $lastChat->get(0)->updated_at;
+                $jsonUser_lastChat = json_encode([$user, $lastChat[0]]);
+                $users_list[$jsonUser_lastChat] = $lastChat[0]->updated_at;
             }
         }
+        
         //sort the array
-        rsort($users_list);
-
+        arsort($users_list);
+        $users_list = array_keys($users_list);
+        $users_list = array_map('json_decode', $users_list);
         //return a json html of the view
-        $json_view = view('')
+        return $users_list;
     }
 
-    public function getMostRecentChat(Request $request){
+    public function getMostRecentChats(Request $request){
+        $this->validate($request, [
+            'the_user'=> 'required|integer'
+        ]);
 
+        $userId = auth()->id();
+
+        $chats = DB::table('chats')
+        ->whereRaw("(senderId = ? and receiverId = ?) or (senderId = ? and receiverId = ?)", [$userId, $request->the_user, $request->the_user, $userId])->orderByDesc('created_at')->limit(100)->get();
+
+        $sender = DB::table('users')->whereRaw("id = ?", [$request->the_user])->get('username');
+        
+        echo view('chat.chats', ['chats' => $chats, 'sender' => $sender]);
     }
 
 }
