@@ -2,7 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\ChatServerController;
 use Illuminate\Console\Command;
+use Ratchet\Http\HttpServer;
+use Ratchet\Server\IoServer;
+use Ratchet\WebSocket\WsServer;
 
 class WebSocketServer extends Command
 {
@@ -36,7 +40,8 @@ class WebSocketServer extends Command
      * @return int
      */
     public function handle()
-    {
+    { 
+        
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(

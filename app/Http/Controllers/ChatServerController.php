@@ -13,6 +13,10 @@ class ChatServerController extends  Controller implements MessageComponentInterf
 
     private $currentOnlineUsers = [];
     
+    public function __construct()
+    {
+        echo "Websocket server started\n";
+    }
      /**
      * When a new connection is opened it will be passed to this method
      * @param  ConnectionInterface $conn The socket/connection that just connected to your application
@@ -20,6 +24,7 @@ class ChatServerController extends  Controller implements MessageComponentInterf
      */
     public function onOpen(ConnectionInterface $conn){
         //do nothing
+        echo "A new connection detected\n";
     }
     
      /**
@@ -28,7 +33,7 @@ class ChatServerController extends  Controller implements MessageComponentInterf
      * @throws \Exception
      */
     public function onClose(ConnectionInterface $conn){
-        
+        echo "A connection closed\n";
     }
     
      /**

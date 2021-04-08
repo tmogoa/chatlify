@@ -15,5 +15,6 @@ class Chat extends Model
         'receiverId'
     ];
 
+   
 
 }
